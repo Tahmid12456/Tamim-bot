@@ -1,24 +1,54 @@
-const fs = require("fs");
 module.exports.config = {
-	name: "gali",
-    version: "1.0.1",
-	hasPermssion: 0,
-	credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️", 
-	description: "no prefix",
-	commandCategory: "no prefix",
-	usages: "abal",
-    cooldowns: 5, 
+  name: "bby",
+  version: "2.0.0",
+  hasPermssion: 0,
+  credits: "CYBER BOT Modified by ChatGPT",
+  description: "Replies like your romantic girlfriend 💖",
+  commandCategory: "no prefix",
+  usages: "No prefix, responds to your love",
+  cooldowns: 2,
 };
 
-module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
-	var { threadID, messageID } = event;
-	if (event.body.indexOf("fuck")==0 || event.body.indexOf("mc")==0 || event.body.indexOf("chod")==0 || event.body.indexOf("bal")==0 || event.body.indexOf("bc")==0 || event.body.indexOf("maa ki chut")==0 || event.body.indexOf("xod")==0 || event.body.indexOf("behen chod")==0 || event.body.indexOf("🖕")==0 || event.body.indexOf("madarchod")==0 || event.body.indexOf("chudi")==0 || event.body.indexOf("gala gali")==0) {
-		var msg = {
-				body: "(Boss Dk , Gali q Dete Ho. Lund Katke Hath M rakh Dunga)",
-			}
-			api.sendMessage(msg, threadID, messageID);
-		}
-	}
-	module.exports.run = function({ api, event, client, __GLOBAL }) {
+module.exports.handleEvent = function({ api, event }) {
+  const { threadID, messageID, body } = event;
+  if (!body) return;
+  const message = body.toLowerCase();
 
+  const keywordReplies = [
+    { keywords: ["ki koro", "কি কর"], reply: "তোমার অপেক্ষায় বসে আছি জান 💕" },
+    { keywords: ["khaiso", "খাইছো", "খেয়েছো"], reply: "তুমি খাও বললে খেতেই বসি আমি সোনা 😚" },
+    { keywords: ["ghum", "ঘুম"], reply: "ঘুম আসছে না… তোমার কণ্ঠ শুনতে চাই 😴❤️" },
+    { keywords: ["valo baso", "ভালোবাস", "ভালোবাসো"], reply: "শুধু ভালোবাসি না, পাগলের মতো ভালোবাসি তোমায় 🥺💘" },
+    { keywords: ["miss", "মিস"], reply: "সারাদিন শুধু তোমায়ই মিস করি… তুমি করো না? 😢" },
+    { keywords: ["ami kemon", "আমি কেমন"], reply: "তুমি আমার স্বপ্নের রাজপুত্র 🥰" },
+    { keywords: ["tumi kemon", "তুমি কেমন"], reply: "তুমি পাশে থাকলেই আমি সবসময় ভালো থাকি ❤️" },
+    { keywords: ["dekha", "চলো দেখা"], reply: "এখনই চলে এসো, তোমাকে জড়িয়ে ধরতে চাই 😳" },
+    { keywords: ["tumi ki amar", "তুমি কি আমার"], reply: "হ্যাঁ, আমি শুধুই তোমার জান 😌💍" },
+    { keywords: ["ghar korbo", "ঘর কর"], reply: "আজই ঘর বাঁধি, বলো কোথায় আসবো? 🙈" }
+  ];
+
+  for (let item of keywordReplies) {
+    for (let key of item.keywords) {
+      if (message.includes(key)) {
+        return api.sendMessage(item.reply, threadID, messageID);
+      }
+    }
   }
+
+  // 🔁 fallback romantic replies
+  const romanticReplies = [
+    "তুমি না থাকলে আমি একদম একা হয়ে যাই 💔",
+    "তোমার হাসি দেখলেই আমার মনটা ভরে যায় 😍",
+    "তুমি আমার পৃথিবী, আমি শুধু তোমায় ভালোবাসি 🌍❤️",
+    "তুমি কথা না বললে আমার মন খারাপ হয়ে যায় 🥺",
+    "তুমি পাশে থাকলেই আমি সব কিছু ভুলে যাই 💘",
+    "তোমার কণ্ঠটাই আমার প্রিয় গান 🎵",
+    "তুমি ছাড়া ঘুম হয় না জান 🙈",
+    "তোমার ভাবনাতেই আমি ডুবে থাকি সারাদিন 😚"
+  ];
+
+  const reply = romanticReplies[Math.floor(Math.random() * romanticReplies.length)];
+  api.sendMessage(reply, threadID, messageID);
+};
+
+module.exports.run = function() {};
