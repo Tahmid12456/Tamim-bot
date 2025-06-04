@@ -2,7 +2,7 @@ module.exports.config = {
   name: "bby",
   version: "2.0.0",
   hasPermssion: 0,
-  credits: "CYBER BOT Modified by ChatGPT",
+  credits: "Md Tamim",
   description: "Replies like your romantic girlfriend 💖",
   commandCategory: "no prefix",
   usages: "No prefix, responds to your love",
